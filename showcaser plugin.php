@@ -21,8 +21,8 @@ function create_showcaser_post_type() {
 	
 	//create a post type for showcasers	
 	register_post_type('showcaser', array(
-		 'label' => __('Background Images'),
-		 'singular_label' => __('Background Image'),
+		 'label' => __('Showcaser Images'),
+		 'singular_label' => __('Showcaser Image'),
 		 'public' => true,
 		 'show_ui' => true,
 		 'capability_type' => 'post',
@@ -38,18 +38,26 @@ function create_showcaser_post_type() {
 	add_action("admin_init", "showcaser_fields");
 	
 	function showcaser_fields(){
-	  add_meta_box("hyperlink_meta", "Hyperlink", "hyperlink_meta", "showcaser", "normal", "low");
+	  add_meta_box("hyperlink_meta", "Showcaser Details", "hyperlink_meta", "showcaser", "normal", "low");
 	}
 	
 	function hyperlink_meta() {
 		  global $post;
 		  $custom = get_post_custom($post->ID);
 		  $hyperlink = $custom["hyperlink"][0];
+		  $overlay = $custom["overlay"][0];
 		  ?>
 		
 			
 		<div class="my_meta_control">
-			<div id="hyperlinkmeta" class="metabox"><input type="text" name="hyperlink" value="<?php echo $hyperlink;?>"/></div>
+			<div id="hyperlinkmeta" class="metabox">
+				<label for="hyperlink">Hyperlink: </label>
+				<input type="text" name="hyperlink" value="<?php echo $hyperlink;?>"/>
+			</div>
+			<div id="overlay" class="metabox">
+				<label for="overlay">Overlay Text</label>
+				<input type="text" name="overlay" value="<?php echo $overlay;?>"/>
+			</div>
 		</div>
 		  <?php
 		}
@@ -67,8 +75,12 @@ function create_showcaser_post_type() {
 		elseif (strpos( $fullhyperlink, "http://") !== false) { }
 		else { $fullhyperlink = "http://" . $fullhyperlink; }
 		
-		update_post_meta($post_ID, "hyperlink", $fullhyperlink); 
+		update_post_meta($post_ID, "hyperlink", $fullhyperlink);
+
+		if ($_POST['overlay']){
+		update_post_meta($post_ID, "overlay", $overlay); 
 		return $post_ID;
+		}
 	}
 
 }
