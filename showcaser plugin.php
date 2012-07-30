@@ -108,17 +108,18 @@ function create_showcaser_post_type() {
 
 }
 
+
+
 //--------------- Create a Function to call from within templates //
 
 function makeShowcaser() {
 	
-	?><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
-            <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.2.74.js"></script>
+	?>
             
             <script type="text/javascript">
             //<![CDATA[
-            $(document).ready(function() {
-                $('#slideshow')
+            jQuery(document).ready(function() {
+                jQuery('#slideshow')
                 .before('<div id="slidenav">') 
                 .cycle({ 
                 fx:     'fade', 
@@ -132,28 +133,35 @@ function makeShowcaser() {
             //]]>
             </script>
             
-            <div id="slideshow">
-              <?php $args = array(
-            'numberposts'     => 100,
-            'orderby'         => 'post_date',
-            'order'           => 'ASC',
-            'post_type'       => 'showcaser',
-            'post_status'     => 'publish' ); 	
-                    
-            $myposts = get_posts( $args );	
-            foreach( $myposts as $post ) : setup_postdata($post); ?>
-            
-            <?php $hyperlink = get_post_meta($post->ID, 'hyperlink', true); ?>
-            <?php $overlay = get_post_meta($post->ID, 'overlay', true); ?>
-                       
-            <div class="slide"><?php if ($hyperlink) { echo '<a href="'.$hyperlink. '">'; } 
-			//echo '<a href=\"'.$hyperlink. '\">';
-			 echo get_the_post_thumbnail( $post->ID, 'slideshow'); echo "</a>";?>
-			 <div class="slideoverlay">
-			 	<?php echo $overlay; ?>
-			</div>
-            <?php endforeach; ?>
+            <div class="slidewrap">
+	            <div id="slideshow">
+	              <?php $args = array(
+	            'numberposts'     => 100,
+	            'orderby'         => 'post_date',
+	            'order'           => 'ASC',
+	            'post_type'       => 'showcaser',
+	            'post_status'     => 'publish' ); 	
+	                    
+	            $myposts = get_posts( $args );	
+	            foreach( $myposts as $post ) : setup_postdata($post); ?>
+	            
+	            <?php $hyperlink = get_post_meta($post->ID, 'hyperlink', true); ?>
+	            <?php $overlayHeader = get_post_meta($post->ID, 'overlayHeader', true); ?>
+	            <?php $overlayText = get_post_meta($post->ID, 'overlayText', true); ?>
+	                       
+	            <div class="slide"><?php if ($hyperlink) { echo '<a href="'.$hyperlink. '">'; } 
+				//echo '<a href=\"'.$hyperlink. '\">';
+				 echo get_the_post_thumbnail( $post->ID, 'showcaser'); echo "</a>";?>
+				 
+				 	<div class="slideoverlay">
+				 		<h2><?php echo $overlayHeader; ?></h2><p><?php echo $overlayText; ?></p>
+				 	</div>
+	            </div> 
+	            <?php endforeach; ?>
+	            </div>
             </div>
+            
+           
 	
 	<?php
 }
