@@ -45,7 +45,8 @@ function create_showcaser_post_type() {
 		  global $post;
 		  $custom = get_post_custom($post->ID);
 		  $hyperlink = $custom["hyperlink"][0];
-		  $overlay = $custom["overlay"][0];
+		  $overlayHeader = $custom["overlayHeader"][0];
+		  $overlayText = $custom["overlayText"][0];
 		  ?>
 		
 			
@@ -55,8 +56,12 @@ function create_showcaser_post_type() {
 				<input type="text" name="hyperlink" value="<?php echo $hyperlink;?>"/>
 			</div>
 			<div id="overlay" class="metabox">
-				<label for="overlay">Overlay Text</label>
-				<input type="text" name="overlay" value="<?php echo $overlay;?>"/>
+				<label for="overlay">Overlay Header</label>
+				<input type="text" name="overlayHeader" value="<?php echo $overlayHeader;?>"/>
+			</div><br/>
+			<div id="overlayText" class="metabox">
+				<label for="overlay">Overlay Description</label>
+				<textarea name="overlayText" style="vertical-align:top;"> <?php echo $overlayText;?></textarea>
 			</div>
 		</div>
 		  <?php
@@ -77,11 +82,15 @@ function create_showcaser_post_type() {
 		
 		update_post_meta($post_ID, "hyperlink", $fullhyperlink);
 
-		if ($_POST['overlay']){
-		update_post_meta($post_ID, "overlay", $overlay); 
+		if ($_POST['overlayHeader']){
+		update_post_meta($post_ID, "overlayHeader", $_POST['overlayHeader']); 
+		}
+		if ($_POST['overlayText']){
+		update_post_meta($post_ID, "overlayText", $_POST['overlayText']); 
+		}
+		
 		return $post_ID;
 		}
-	}
 
 }
 
@@ -121,10 +130,14 @@ function makeShowcaser() {
             foreach( $myposts as $post ) : setup_postdata($post); ?>
             
             <?php $hyperlink = get_post_meta($post->ID, 'hyperlink', true); ?>
+            <?php $overlay = get_post_meta($post->ID, 'overlay', true); ?>
                        
             <div class="slide"><?php if ($hyperlink) { echo '<a href="'.$hyperlink. '">'; } 
 			//echo '<a href=\"'.$hyperlink. '\">';
-			 echo get_the_post_thumbnail( $post->ID, 'slideshow'); echo "</a>";?></div>
+			 echo get_the_post_thumbnail( $post->ID, 'slideshow'); echo "</a>";?>
+			 <div class="slideoverlay">
+			 	<?php echo $overlay; ?>
+			</div>
             <?php endforeach; ?>
             </div>
 	
