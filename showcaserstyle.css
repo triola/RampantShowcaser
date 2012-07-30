@@ -1,0 +1,55 @@
+.slidewrap {
+	position: relative;
+}
+
+
+#slidenav {
+	position: absolute;
+	bottom: 15px;
+	right: 20px;
+	z-index: 20;
+}
+
+#slidenav a {
+	display: block;
+	background: #d9d9d9;
+	border-radius: 7px;
+	width: 14px;
+	height: 14px;
+	margin: 4px;
+	float: right;
+	text-indent: -9999px;
+}
+
+#slidenav a.activeSlide {
+		background: #f4f4f4;
+}
+
+
+.slideoverlay {
+	position: absolute;
+	display: block;
+	height: 100px;
+	width: 930px;
+	background: rgba(255,255,255,0.5);
+	left: 5px;
+	bottom: 0px;
+}
+.slideoverlay h2 {
+	position: absolute;
+	color: #fff;
+	font-size: 1.9em;
+	bottom: 50px;
+	left: 20px;
+	text-shadow: 1px 1px 3px #868686;
+}
+
+.slideoverlay p {
+	position: absolute;
+	color: #fff;
+	font-size: 1em;
+	bottom: 60px;
+	width: 400px;
+	left: 400px;
+	text-shadow: 1px 1px 3px #868686;
+}

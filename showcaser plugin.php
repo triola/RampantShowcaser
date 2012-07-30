@@ -8,15 +8,29 @@ Version: 1
 Author URI: http://therampant.com/
 */
  
+
+//enque some scripts
+add_action('wp_enqueue_scripts', 'my_scripts_method');
+
+function my_scripts_method() {
+    wp_register_script( 'jcycle', 'http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.2.74.js');
+    wp_register_style( 'showcaserstyles', plugins_url().'/rampantshowcaser/showcaserstyle.css');
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jcycle' );
+    wp_enqueue_style( 'showcaserstyles' );
+}    
+ 
+
  //defines what the widget outputs
 
-    add_action( 'init', 'create_showcaser_post_type' );
+add_action( 'init', 'create_showcaser_post_type' );
+   
 	
 function create_showcaser_post_type() {
 	
 	if ( function_exists( 'add_theme_support' ) ) { 
  	 add_theme_support( 'post-thumbnails' ); 
-	 add_image_size( 'showcaser', 600, 150, true );
+	 add_image_size( 'showcaser', 930, 450, true );
 	}	
 	
 	//create a post type for showcasers	
