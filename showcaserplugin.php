@@ -8,6 +8,11 @@ Version: 1
 Author URI: http://therampant.com/
 */
  
+//Here are some settings. Later incorporate these into a Wordpress admin settings page and save them in options table 
+$size['name'] = 'showcaser';
+$size['width'] = 930;
+$size['height'] = 450;
+ 
 
 //enque some scripts
 add_action('wp_enqueue_scripts', 'rampant_showcaser_scripts_method');
@@ -33,7 +38,7 @@ if (! function_exists('create_showcaser_post_type') {
 		
 		if ( function_exists( 'add_theme_support' ) ) { 
  	 add_theme_support( 'post-thumbnails' ); 
-	 add_image_size( 'showcaser', 930, 450, true );
+	 add_image_size( $size['name'], $size['width'], $size['height'], true );
 	}	
 		
 		//create a post type for showcasers	
